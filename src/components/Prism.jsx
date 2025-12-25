@@ -16,7 +16,8 @@ const Prism = ({
     inertia = 0.05,
     bloom = 1,
     suspendWhenOffscreen = false,
-    timeScale = 0.5
+    timeScale = 0.5,
+    quality = 1.0 // 1.0 = 100 steps, 0.4 = 40 steps
 }) => {
     const containerRef = useRef(null);
 
@@ -72,6 +73,7 @@ const Prism = ({
 
         const fragment = /* glsl */ `
       precision highp float;
+      uniform float uQuality;
 
       uniform vec2  iResolution;
       uniform float iTime;
@@ -157,8 +159,9 @@ const Prism = ({
           wob = mat2(c0, c1, c2, c0);
         }
 
-        const int STEPS = 100;
-        for (int i = 0; i < STEPS; i++) {
+        int steps = int(100.0 * uQuality);
+        for (int i = 0; i < 100; i++) {
+          if (i >= steps) break;
           p = vec3(f, z);
           p.xz = p.xz * wob;
           p = uRot * p;
@@ -216,7 +219,8 @@ const Prism = ({
                 uPxScale: {
                     value: 1 / ((gl.drawingBufferHeight || 1) * 0.1 * SCALE)
                 },
-                uTimeScale: { value: TS }
+                uTimeScale: { value: TS },
+                uQuality: { value: quality }
             }
         });
         const mesh = new Mesh(gl, { geometry, program });
@@ -426,7 +430,8 @@ const Prism = ({
         hoverStrength,
         inertia,
         bloom,
-        suspendWhenOffscreen
+        suspendWhenOffscreen,
+        quality
     ]);
 
     return <div className="w-full h-full relative" ref={containerRef} />;

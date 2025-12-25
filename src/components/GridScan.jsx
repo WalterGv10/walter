@@ -471,7 +471,9 @@ const GridScan = ({
         scene.add(quad);
 
         let composer = null;
-        if (enablePost) {
+        const finalEnablePost = enablePost && !style?.isMobile;
+
+        if (finalEnablePost) {
             composer = new EffectComposer(renderer);
             composerRef.current = composer;
             const renderPass = new RenderPass(scene, camera);
@@ -562,7 +564,9 @@ const GridScan = ({
                 composerRef.current = null;
             }
             renderer.dispose();
-            container.removeChild(renderer.domElement);
+            if (container.contains(renderer.domElement)) {
+                container.removeChild(renderer.domElement);
+            }
         };
     }, [
         sensitivity,

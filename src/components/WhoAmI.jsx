@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import GridScan from './GridScan'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const WhoAmI = () => {
+    const isMobile = useIsMobile()
     const items = [
         "Ingeniero de software con base en electrónica, redes e infraestructura",
         "Arquitecto + Programador + Ejecutor",
@@ -14,12 +16,12 @@ const WhoAmI = () => {
             <div className="absolute inset-0 z-0 opacity-40">
                 <GridScan
                     sensitivity={0.55}
-                    lineThickness={1}
+                    lineThickness={isMobile ? 0.5 : 1}
                     linesColor="#392e4e"
-                    gridScale={0.1}
+                    gridScale={isMobile ? 0.15 : 0.1}
                     scanColor="#FF9FFC"
                     scanOpacity={0.4}
-                    enablePost
+                    enablePost={!isMobile}
                     bloomIntensity={0.6}
                     chromaticAberration={0.002}
                     noiseIntensity={0.01}

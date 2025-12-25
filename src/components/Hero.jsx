@@ -1,7 +1,9 @@
 import { motion } from 'framer-motion'
 import Prism from './Prism'
+import { useIsMobile } from '../hooks/useIsMobile'
 
 const Hero = () => {
+    const isMobile = useIsMobile()
     return (
         <section className="relative h-screen flex flex-col justify-center items-center overflow-hidden">
             {/* Background Effect */}
@@ -11,14 +13,16 @@ const Hero = () => {
                 <div className="absolute inset-0 opacity-60">
                     <Prism
                         animationType="rotate"
-                        timeScale={0.3}
-                        height={4}
-                        baseWidth={6}
-                        scale={3.2}
+                        timeScale={isMobile ? 0.15 : 0.3}
+                        height={isMobile ? 3 : 4}
+                        baseWidth={isMobile ? 4 : 6}
+                        scale={isMobile ? 2.5 : 3.2}
                         hueShift={0}
                         colorFrequency={0.8}
-                        noise={0.3}
+                        noise={isMobile ? 0.1 : 0.3}
                         glow={0.8}
+                        quality={isMobile ? 0.35 : 1.0}
+                        suspendWhenOffscreen={true}
                     />
                 </div>
             </div>
