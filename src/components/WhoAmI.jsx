@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion'
+import GridScan from './GridScan'
 
 const WhoAmI = () => {
     const items = [
@@ -9,14 +10,30 @@ const WhoAmI = () => {
 
     return (
         <section className="py-32 px-4 bg-surface relative overflow-hidden">
-            <div className="max-w-4xl mx-auto">
+            {/* Background GridScan Effect */}
+            <div className="absolute inset-0 z-0 opacity-40">
+                <GridScan
+                    sensitivity={0.55}
+                    lineThickness={1}
+                    linesColor="#392e4e"
+                    gridScale={0.1}
+                    scanColor="#FF9FFC"
+                    scanOpacity={0.4}
+                    enablePost
+                    bloomIntensity={0.6}
+                    chromaticAberration={0.002}
+                    noiseIntensity={0.01}
+                />
+            </div>
+
+            <div className="max-w-4xl mx-auto relative z-10">
                 <motion.h2
                     initial={{ opacity: 0, x: -20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     className="text-sm font-bold tracking-widest text-primary uppercase mb-12"
                 >
-          // Quién Soy
+                    // Quién Soy
                 </motion.h2>
 
                 <div className="space-y-16">
