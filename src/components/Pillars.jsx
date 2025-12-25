@@ -1,4 +1,3 @@
-import { motion } from 'framer-motion'
 import { Code2, PenTool, Server, Wrench } from 'lucide-react'
 import ElectricBorder from './ElectricBorder'
 
@@ -37,34 +36,24 @@ const Pillars = () => {
     return (
         <section className="py-32 px-4 bg-surface relative">
             <div className="max-w-6xl mx-auto">
-                <motion.h2
-                    initial={{ opacity: 0, x: -20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    className="text-sm font-bold tracking-widest text-primary uppercase mb-16"
-                >
-          // Qué Construyo
-                </motion.h2>
+                <h2 className="text-sm font-bold tracking-widest text-primary uppercase mb-16 animate-fade-in">
+                    // Qué Construyo
+                </h2>
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     {pillars.map((pillar, index) => (
-                        <motion.div
+                        <div
                             key={index}
-                            initial={{ opacity: 0, scale: 0.95 }}
-                            whileInView={{ opacity: 1, scale: 1 }}
-                            viewport={{ once: true }}
-                            transition={{ delay: index * 0.1 }}
-                            className="group"
+                            className="group animate-fade-in"
+                            style={{ animationDelay: `${index * 100}ms`, animationFillMode: 'both' }}
                         >
                             <ElectricBorder
                                 color="#00f0ff"
                                 speed={0.8}
-                                chaos={0.4}
-                                thickness={1.5}
-                                style={{ borderRadius: 16 }}
+                                thickness={1}
                             >
-                                <div className="relative p-8 min-h-[16rem] h-auto flex flex-col justify-between bg-zinc-950/90 backdrop-blur-sm overflow-hidden">
-                                    <div className="absolute top-0 right-0 p-4 opacity-10 text-primary">
+                                <div className="relative p-8 min-h-[16rem] h-auto flex flex-col justify-between bg-zinc-950/40 backdrop-blur-md overflow-hidden group">
+                                    <div className="absolute top-0 right-0 p-4 opacity-10 text-primary group-hover:opacity-30 transition-opacity duration-300">
                                         {pillar.icon}
                                     </div>
 
@@ -76,19 +65,14 @@ const Pillars = () => {
                                         <p className="text-lg text-zinc-400 mt-1 font-light italic">{pillar.desc}</p>
                                     </div>
 
-                                    <motion.div
-                                        initial={{ opacity: 0, y: 10 }}
-                                        whileInView={{ opacity: 1, y: 0 }}
-                                        viewport={{ once: true }}
-                                        transition={{ delay: index * 0.1 + 0.3 }}
-                                    >
+                                    <div className="animate-slide-up" style={{ animationDelay: `${index * 100 + 400}ms`, animationFillMode: 'both' }}>
                                         <p className="text-sm text-zinc-300 leading-relaxed max-w-md border-t border-white/5 pt-4">
                                             {pillar.detail}
                                         </p>
-                                    </motion.div>
+                                    </div>
                                 </div>
                             </ElectricBorder>
-                        </motion.div>
+                        </div>
                     ))}
                 </div>
             </div>

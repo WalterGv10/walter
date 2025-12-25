@@ -418,9 +418,10 @@ const GridScan = ({
         const container = containerRef.current;
         if (!container) return;
 
-        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        const isMobile = window.innerWidth < 768;
+        const renderer = new THREE.WebGLRenderer({ antialias: !isMobile, alpha: true });
         rendererRef.current = renderer;
-        renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+        renderer.setPixelRatio(isMobile ? 1 : Math.min(window.devicePixelRatio || 1, 2));
         renderer.setSize(container.clientWidth, container.clientHeight);
         renderer.outputColorSpace = THREE.SRGBColorSpace;
         renderer.toneMapping = THREE.NoToneMapping;
@@ -471,7 +472,7 @@ const GridScan = ({
         scene.add(quad);
 
         let composer = null;
-        const finalEnablePost = enablePost && !style?.isMobile;
+        const finalEnablePost = enablePost;
 
         if (finalEnablePost) {
             composer = new EffectComposer(renderer);
