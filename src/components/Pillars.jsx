@@ -63,24 +63,29 @@ const Pillars = () => {
                                 thickness={1.5}
                                 style={{ borderRadius: 16 }}
                             >
-                                <div className="relative p-8 h-64 flex flex-col justify-between bg-zinc-950 backdrop-blur-sm overflow-hidden group">
-                                    <div className="absolute top-0 right-0 p-4 opacity-20 group-hover:opacity-100 transition-opacity duration-500 text-primary">
+                                <div className="relative p-8 min-h-[16rem] h-auto flex flex-col justify-between bg-zinc-950/90 backdrop-blur-sm overflow-hidden">
+                                    <div className="absolute top-0 right-0 p-4 opacity-10 text-primary">
                                         {pillar.icon}
                                     </div>
 
-                                    <div>
+                                    <div className="mb-6">
                                         <span className="text-xs font-mono text-zinc-500 mb-2 block">{pillar.id}</span>
                                         <h3 className="text-3xl font-display font-medium text-zinc-100 group-hover:text-primary transition-colors duration-300">
                                             {pillar.title}
                                         </h3>
-                                        <p className="text-lg text-zinc-400 mt-1">{pillar.desc}</p>
+                                        <p className="text-lg text-zinc-400 mt-1 font-light italic">{pillar.desc}</p>
                                     </div>
 
-                                    <div className="transform translate-y-8 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-500 delay-100">
-                                        <p className="text-sm text-zinc-300 leading-relaxed max-w-md">
+                                    <motion.div
+                                        initial={{ opacity: 0, y: 10 }}
+                                        whileInView={{ opacity: 1, y: 0 }}
+                                        viewport={{ once: true }}
+                                        transition={{ delay: index * 0.1 + 0.3 }}
+                                    >
+                                        <p className="text-sm text-zinc-300 leading-relaxed max-w-md border-t border-white/5 pt-4">
                                             {pillar.detail}
                                         </p>
-                                    </div>
+                                    </motion.div>
                                 </div>
                             </ElectricBorder>
                         </motion.div>
